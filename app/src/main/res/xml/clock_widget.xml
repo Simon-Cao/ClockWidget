@@ -2,7 +2,7 @@
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
     android:minWidth="100dp"
     android:minHeight="100dp"
-    android:updatePeriodMillis="1000"
+    android:updatePeriodMillis="0"
     android:previewImage="@mipmap/ic_launcher"
     android:initialLayout="@layout/clock_widget"
     android:resizeMode="horizontal|vertical"/>
