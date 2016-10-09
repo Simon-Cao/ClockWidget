@@ -1,4 +1,4 @@
-package com.example.clockwidget;
+package com.example.clockwidget.widget;
 
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;

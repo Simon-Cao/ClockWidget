@@ -1,4 +1,4 @@
-package com.example.clockwidget;
+package com.example.clockwidget.widget;
 
 import android.app.Service;
 import android.appwidget.AppWidgetManager;
@@ -8,6 +8,9 @@ import android.graphics.Bitmap;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.widget.RemoteViews;
+
+import com.example.clockwidget.ClockView;
+import com.example.clockwidget.R;
 
 public class ClockService extends Service {
 
