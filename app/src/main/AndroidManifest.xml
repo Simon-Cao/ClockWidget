@@ -16,14 +16,15 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".widget.ClockWidget" >
+        <receiver android:name=".widget.ClockWidget">
             <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+                <action android:name="com.example.clockwidget.CLICK_EVENT"/>
             </intent-filter>
 
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/clock_widget" />
+                android:resource="@xml/clock_widget"/>
         </receiver>
 
         <service android:name=".widget.ClockService"/>

@@ -1,5 +1,6 @@
 package com.example.clockwidget.widget;
 
+import android.app.PendingIntent;
 import android.app.Service;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
@@ -37,10 +38,15 @@ public class ClockService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        thread = new Thread(new Runnable() {
+        final long startTime = System.currentTimeMillis();
+        thread = new Thread() {
             @Override
             public void run() {
-                while (thread != null) {
+                while (thread == this) {
+                    long time = System.currentTimeMillis();
+                    if (startTime + 10 * 1000 < time) {
+                        break;
+                    }
                     updateClock();
                     try {
                         Thread.sleep(1000);
@@ -49,7 +55,7 @@ public class ClockService extends Service {
                     }
                 }
             }
-        });
+        };
         thread.start();
 
         return super.onStartCommand(intent, flags, startId);
@@ -68,9 +74,13 @@ public class ClockService extends Service {
         clockView.measure(320, 320);
         clockView.layout(0, 0, 320, 320);
         clockView.setDrawingCacheEnabled(true);
-
         Bitmap bitmap = clockView.getDrawingCache();
         remoteViews.setImageViewBitmap(R.id.imageView, bitmap);
+
+        Intent clickIntent = new Intent(ClockWidget.CLICK_EVENT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, clickIntent, 0);
+        remoteViews.setOnClickPendingIntent(R.id.imageView, pendingIntent);
+
         appWidgetManager.updateAppWidget(componentName, remoteViews);
     }
 }
