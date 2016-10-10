@@ -60,22 +60,22 @@ public class ClockView extends View {
         int takasa = getHeight();
         int x = haba * second / 60;
         paint.setStyle(Paint.Style.FILL);
-        // もしも、秒が 3 で割り切れるなら、黄色にする
-        // 3 で割ると 1 余るなら、紫 (MAGENTA) にする
-        // それ以外 (3 で割ると 2 余る) なら、水色 (CYAN) にする
-        if (second % 3 == 0) {
-            paint.setColor(Color.YELLOW);
-        } else if (second % 3 == 1) {
-            paint.setColor(Color.MAGENTA);
-        } else {
-            paint.setColor(Color.CYAN);
-        }
-        // もしも、秒が偶数なら、上に表示する
-        // 奇数なら、下に表示する
-        if (second % 2 == 0) {
-            canvas.drawRect(0, 0, x, 100, paint);
-        } else {
-            canvas.drawRect(x, takasa - 100, haba, takasa, paint);
+        // 秒を 10 で割った余りを amari として、
+        // amari + 1 個の小さな円を表示する
+        int amari = second % 10;
+        for (int i = 0; i < amari + 1; i++) {
+            // もしも、i が 3 で割り切れるなら、黄色にする
+            // 3 で割ると 1 余るなら、紫 (MAGENTA) にする
+            // それ以外 (3 で割ると 2 余る) なら、水色 (CYAN) にする
+            if (i % 3 == 0) {
+                paint.setColor(Color.YELLOW);
+            } else if (i % 3 == 1) {
+                paint.setColor(Color.MAGENTA);
+            } else {
+                paint.setColor(Color.CYAN);
+            }
+            int y = takasa * i / 10;
+            canvas.drawOval(x0 - 25, y, x0 + 25, y + 50, paint);
         }
 
         // 時針を描画する
