@@ -44,7 +44,7 @@ public class ClockView extends View {
         // 円を描画する
         Paint paint = new Paint();              // 描画するための塗料を生成する
         paint.setStyle(Paint.Style.STROKE);     // 塗りつぶしではなく、輪郭線を描く
-        paint.setColor(Color.YELLOW);           // 色は黄色
+        paint.setColor(Color.CYAN);           // 色は黄色
         paint.setStrokeWidth(5);                // 線の太さは 5 ピクセル
         RectF ovalRect = new RectF(x0 - (r - 5), y0 - (r - 5), x0 + (r - 5), y0 + (r - 5));
         canvas.drawOval(ovalRect, paint);       // 円を描画する
@@ -54,6 +54,29 @@ public class ClockView extends View {
         int hour = now.get(Calendar.HOUR) % 12;     // 時 (12 時間制)
         int minute = now.get(Calendar.MINUTE);      // 分
         int second = now.get(Calendar.SECOND);      // 秒
+
+        // 上下に何かを表示する
+        int haba = getWidth();
+        int takasa = getHeight();
+        int x = haba * second / 60;
+        paint.setStyle(Paint.Style.FILL);
+        // もしも、秒が 3 で割り切れるなら、黄色にする
+        // 3 で割ると 1 余るなら、紫 (MAGENTA) にする
+        // それ以外 (3 で割ると 2 余る) なら、水色 (CYAN) にする
+        if (second % 3 == 0) {
+            paint.setColor(Color.YELLOW);
+        } else if (second % 3 == 1) {
+            paint.setColor(Color.MAGENTA);
+        } else {
+            paint.setColor(Color.CYAN);
+        }
+        // もしも、秒が偶数なら、上に表示する
+        // 奇数なら、下に表示する
+        if (second % 2 == 0) {
+            canvas.drawRect(0, 0, x, 100, paint);
+        } else {
+            canvas.drawRect(x, takasa - 100, haba, takasa, paint);
+        }
 
         // 時針を描画する
         paint.setColor(Color.RED);                      // 色は赤
