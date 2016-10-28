@@ -1,3 +1,6 @@
 # ClockWidget
 [Android] a clock widget
-
+这哥们的想法不错，所以fork过来了
+我在做类似widget时碰到的最大问题就是，用于刷新widget view的service会被各种方式终结，如系统调配资源，360等软件，然后widget就没法更新了，除非删了重新建一个
+而这哥们的解决方式是在widget上加了个onClickListener，点击一下就重启服务，就又可以继续刷新了
+虽然也不是一个很完美的解决方案，不过也算是个折中的方案了
